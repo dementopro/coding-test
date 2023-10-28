@@ -17,7 +17,7 @@
         {{-- @vite(['resources/js/app.js']) --}}
     </head>
     <body class="font-sans antialiased">
-        <div class="flex flex-col min-h-screen max-h-screen bg-gray-100">
+        <div class="flex flex-col min-h-screen max-h-screen">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
@@ -30,7 +30,7 @@
             @endif
 
             <!-- Page Content -->
-            <main class="flex-1 flex flex-col" id="app">
+            <main class="flex-1 flex flex-col pb-6" id="app">
                 {{ $slot }}
             </main>
         </div>

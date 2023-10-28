@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Http\Requests\StorePhaseRequest;
 use App\Http\Requests\UpdatePhaseRequest;
 use App\Models\Phase;
+use App\Models\Task;
 
 class PhaseController extends Controller
 {
@@ -57,10 +60,32 @@ class PhaseController extends Controller
     }
 
     /**
+     * Mark the specified phase as completed.
+     */
+    public function markAsCompleted(Request $request) {
+        $phase = Phase::findOrFail($request->phase_id);
+        $phase->completed = !$phase->completed;
+        $phase->save();
+
+        $tasks = [];
+        $tasks = $phase->tasks;
+        foreach($tasks as $task) {
+            if (!$task->completed_at) {
+                $task->completed_at = Carbon::now();
+            }
+            $task->save();
+        }
+
+        return response()->json('Marked phase as completed!');
+    }
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Phase $phase)
     {
-        //
+        Phase::destroy($phase->id);
+
+        return response()->json('Phase has been removed!');
     }
 }
