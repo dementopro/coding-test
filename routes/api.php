@@ -19,6 +19,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::middleware('auth:sanctum')->get('/tasks', [App\Http\Controllers\TaskController::class, 'index']);
 Route::middleware('auth:sanctum')->post('/tasks', [App\Http\Controllers\TaskController::class, 'store']);
+Route::middleware('auth:sanctum')->put('/tasks', [App\Http\Controllers\TaskController::class, 'update']);
 Route::middleware('auth:sanctum')->delete('/tasks/{task}', [App\Http\Controllers\TaskController::class, 'destroy']);
+Route::middleware('auth:sanctum')->get('/tasks/user/{user_id}', [App\Http\Controllers\TaskController::class, 'getUserTasks']);
+Route::middleware('auth:sanctum')->get('/tasks/week', [App\Http\Controllers\TaskController::class, 'getCompletedTasksThisWeek']);
+Route::middleware('auth:sanctum')->get('/tasks/month', [App\Http\Controllers\TaskController::class, 'getCompletedTasksThisMonth']);
 Route::middleware('auth:sanctum')->get('/users', [App\Http\Controllers\TaskController::class, 'users']);
 Route::middleware('auth:sanctum')->get('/phases/{phase}', [App\Http\Controllers\PhaseController::class, 'show']);
+Route::middleware('auth:sanctum')->put('/phases', [App\Http\Controllers\PhaseController::class, 'markAsCompleted']);
+Route::middleware('auth:sanctum')->delete('/phases/{phase}', [App\Http\Controllers\PhaseController::class, 'destroy']);

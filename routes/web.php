@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/tasks', [TaskController::class, 'kanban'])->name('tasks.index');
     Route::resource('tasks', TaskController::class)->except(['index', 'show']);
+    Route::get('/statistic', [TaskController::class, 'statistic'])->name('tasks.statistic');
 });
 
 require __DIR__.'/auth.php';
